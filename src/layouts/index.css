@@ -1,0 +1,76 @@
+@media only screen and (max-width: 340px) {
+  html {
+    font-size: 100%;
+  }
+}
+
+.visually-hidden { /* https://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
+  position: absolute !important;
+  height: 1px; width: 1px; 
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+header {
+  display: grid;
+  grid-template-columns: 1fr 740px 1fr;
+}
+
+header > * {
+  grid-column: 2;
+}
+
+/* grid container */
+.home {
+  display: grid;
+  grid-template-columns: 1fr 10px 740px 10px 1fr;
+}
+
+.home > * {
+  grid-column: 3;
+}
+
+article {
+  display: grid;
+  grid-template-columns: 1fr 1fr 10px 740px 10px 1fr 1fr;
+}
+
+article > section:first-child {
+  grid-column: 2/7;
+}
+
+article > section:last-child {
+  grid-column: 4;
+  margin-top: 1.4rem;
+}
+
+article > section:last-child p:first-of-type {
+  font-style: italic;
+  font-size: 26px;
+  line-height: 2;
+}
+
+article > figure {
+  grid-column: 1 / -1;
+  margin: 20px 0;
+}
+
+article > blockquote {
+  grid-column: 3 / 5;
+  padding-left: 10px;
+  color: #666;
+  border-left: 3px solid black;
+}
+
+article > aside {
+  grid-column: 5;
+}
+
+a {
+  text-decoration: underline;
+}
+
+a:hover {
+  background-color: rgb(255,250,0);
+}

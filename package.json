@@ -1,0 +1,37 @@
+{
+  "name": "amberley-me",
+  "description": "In-progress blog conversion WordPress to Gatsby",
+  "version": "1.0.0",
+  "author": "Amberley Romo <amberleyjohanna@gmail.com>",
+  "dependencies": {
+    "gatsby": "^1.9.153",
+    "gatsby-image": "^1.0.32",
+    "gatsby-link": "^1.6.34",
+    "gatsby-plugin-glamor": "^1.6.10",
+    "gatsby-plugin-react-helmet": "^2.0.3",
+    "gatsby-plugin-sharp": "^1.6.24",
+    "gatsby-plugin-styled-components": "^2.0.4",
+    "gatsby-plugin-typography": "^1.7.10",
+    "gatsby-source-wordpress": "^2.0.43",
+    "gatsby-transformer-sharp": "^1.6.16",
+    "react-helmet": "^5.2.0",
+    "react-icons": "^2.2.7",
+    "typography": "^0.16.6",
+    "typography-theme-sutro": "^0.15.10",
+    "typography-theme-wordpress-2013": "^0.15.10"
+  },
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "MIT",
+  "main": "n/a",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --trailing-comma es5 --no-semi --single-quote --write \"src/**/*.js\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "prettier": "^1.10.2"
+  }
+}
