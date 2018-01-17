@@ -14,26 +14,25 @@
 
 header {
   display: grid;
-  grid-template-columns: 1fr 740px 1fr;
+  grid-template-columns: 1fr 1fr 10px minmax(300px, 5fr) 10px 1fr 1fr;
 }
 
 header > * {
-  grid-column: 2;
+  grid-column: 3/5;
 }
 
-/* grid container */
 .home {
   display: grid;
-  grid-template-columns: 1fr 10px 740px 10px 1fr;
+  grid-template-columns: 1fr 1fr 10px minmax(300px, 5fr) 10px 1fr 1fr;
 }
 
 .home > * {
-  grid-column: 3;
+  grid-column: 3/5;
 }
 
 article {
   display: grid;
-  grid-template-columns: 1fr 1fr 10px 740px 10px 1fr 1fr;
+  grid-template-columns: 1fr 1fr 10px minmax(300px, 5fr) 10px 1fr 1fr;
   grid-template-rows: auto auto;
   grid-template-areas:
     "t t t t t . ."
@@ -43,13 +42,13 @@ article {
 article .post-intro {
   grid-area: t;
   display: grid;
-  grid-template-columns: 1fr 10px 740px 10px;
+  grid-template-columns: 1fr minmax(300px, 5fr) 1fr;
   background-color: rgb(255,247,243);
   margin: .6rem 0 .8rem 0;
 }
 
 article .post-title {
-  grid-column: 2 / 4;
+  grid-column: 2/3;
 }
 
 article h1.post-title {
@@ -57,7 +56,7 @@ article h1.post-title {
 }
 
 article .post-date {
-  grid-column: 2 / 4;
+  grid-column: 2/3;
 }
 
 .post-date {
