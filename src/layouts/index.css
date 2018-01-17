@@ -98,7 +98,7 @@ a {
   text-decoration: underline;
 }
 
-a:hover {
+a:hover, a:focus {
   background-color: rgb(244,153,133);
   color: #fff;
   padding: 1px;
