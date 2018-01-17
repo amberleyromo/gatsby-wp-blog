@@ -11,14 +11,11 @@ class PostTemplate extends Component {
 
     return (
       <article>
-        <section>
-          <h1 dangerouslySetInnerHTML={{ __html: post.title }} />
-          <PostIcons node={post} />
-        </section>
-
-        <section>
-          <div dangerouslySetInnerHTML={{ __html: post.content }} />
-        </section>
+          <div className="post-intro">
+            <h1 className="post-title" dangerouslySetInnerHTML={{ __html: post.title }} />
+            <PostIcons className="post-date" node={post} />
+          </div>
+          <div className="post-body" dangerouslySetInnerHTML={{ __html: post.content }} />
       </article>
     )
   }

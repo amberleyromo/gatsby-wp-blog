@@ -5,14 +5,9 @@ Sutro.headerLineHeight = 1.1
 Sutro.baseFontSize = '22px'
 Sutro.overrideThemeStyles = ({ rhythm }, options) => {
   return {
-    h1: {
-      lineHeight: 1,
-      marginTop: rhythm(1 / 4),
-      marginBottom: rhythm(1 / 3),
-    },
-    'h2,h3': {
+    'h1,h2,h3': {
       marginTop: rhythm(1),
-      marginBottom: rhythm(1 / 3),
+      marginBottom: rhythm(1/2),
       lineHeight: 1.4,
     },
     p: {
@@ -24,7 +19,6 @@ Sutro.overrideThemeStyles = ({ rhythm }, options) => {
     },
   }
 }
-// console.log(Sutro)
 
 const typography = new Typography(Sutro)
 
