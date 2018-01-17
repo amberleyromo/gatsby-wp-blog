@@ -20,7 +20,7 @@ class Home extends Component {
             <h3>
               <Link to={node.slug}>{node.title}</Link>
             </h3>
-            <PostIcons node={node} />
+            <PostIcons className="post-date" node={node} />
             <div dangerouslySetInnerHTML={{ __html: node.excerpt }} />
           </div>
         ))}

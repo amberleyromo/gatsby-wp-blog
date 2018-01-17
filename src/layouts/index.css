@@ -58,7 +58,15 @@ article h1.post-title {
 
 article .post-date {
   grid-column: 2 / 4;
-  margin-bottom: .6rem;
+}
+
+.post-date {
+  margin-bottom: .8rem;
+}
+
+.post-date span {
+  font-size: .9rem;
+  color: #777777;
 }
 
 article .post-body {
