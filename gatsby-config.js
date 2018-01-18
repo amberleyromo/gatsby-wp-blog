@@ -4,6 +4,7 @@ module.exports = {
     subtitle: `Gatsby + WP`
   },
   plugins: [
+    `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -28,7 +29,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-offline`,
-    `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-wordpress`,
       options: {
@@ -39,14 +39,18 @@ module.exports = {
       },
       verboseOutput: true,
     },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
-    `gatsby-plugin-glamor`,
     {
       resolve: `gatsby-plugin-typography`,
       options: {
         pathToConfigModule: `src/utils/typography.js`,
       }
+    },
+    {
+      resolve: `gatsby-plugin-accessibilityjs`,
+      options: {
+        injectStyles: false,
+        errorClassName: false,
+      },
     },
     {
       resolve: `gatsby-plugin-google-analytics`,
@@ -55,6 +59,9 @@ module.exports = {
         anonymize: true,
       },
     },
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    `gatsby-plugin-twitter`
   ],
   
 };
