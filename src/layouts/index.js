@@ -13,7 +13,7 @@ class DefaultLayout extends React.Component {
     return (
       <div>
         <Helmet
-          title="Amberley's Blog"
+          title="Amberley Dot Blog"
           meta={[
             { name: 'description', content: 'Writings and collection from Amberley Romo' },
             { name: 'keywords', content: 'blog, tech, code, development, knitting' },

@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: 'amberley.me',
+    title: 'amberley dot blog',
     subtitle: 'Gatsby + WP'
   },
   plugins: [
@@ -25,7 +25,7 @@ module.exports = {
       }
     },
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: 'gatsby-plugin-google-analytics',
       options: {
         trackingId: "UA-112664995-1",
         anonymize: true,
