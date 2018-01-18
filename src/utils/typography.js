@@ -11,7 +11,7 @@ Sutro.overrideThemeStyles = ({ rhythm }, options) => {
       lineHeight: 1.4,
     },
     p: {
-      marginBottom: rhythm(2),
+      marginBottom: rhythm(1),
       lineHeight: 1.78,
     },
     a: {
