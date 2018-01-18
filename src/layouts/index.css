@@ -98,8 +98,26 @@ a {
   text-decoration: underline;
 }
 
-a:hover, a:focus {
+a:hover, a:focus, a > code:hover {
   background-color: rgb(244,153,133);
   color: #fff;
   padding: 1px;
+}
+
+code, pre {
+  background-color: #f5fefe;
+  border: #decede solid .5px;
+  overflow: auto;
+}
+
+pre {
+  padding: 12px;
+}
+
+code {
+  padding: 4px 2px 4px;
+}
+
+a > code:hover {
+  border: none;
 }
