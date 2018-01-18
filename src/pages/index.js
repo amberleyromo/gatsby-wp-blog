@@ -44,7 +44,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    allWordpressPost {
+    allWordpressPost (limit: 3) {
       edges {
         node {
           title
