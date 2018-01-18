@@ -8,7 +8,7 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: "Amberley Dot Blog",
-        short_name: "AmberleyDotBlog",
+        short_name: "amberleyblog",
         start_url: "/",
         background_color: "#f49985",
         theme_color: "#fff7f3",
