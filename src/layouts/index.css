@@ -93,7 +93,7 @@ header > * {
 
 article {
   display: grid;
-  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-columns: 1fr minmax(200px, 4fr) 1fr;
   grid-gap: 10px;
   grid-template-rows: auto auto;
   grid-template-areas:
@@ -170,10 +170,10 @@ a:hover, a:focus, a > code:hover {
 code, pre {
   background-color: #f5fefe;
   border: #decede solid .5px;
-  overflow: auto;
 }
 
 pre {
+  overflow-x: scroll;
   padding: 12px;
 }
 
