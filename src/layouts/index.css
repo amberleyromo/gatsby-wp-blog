@@ -93,19 +93,21 @@ header > * {
 
 article {
   display: grid;
-  grid-template-columns: 1fr 1fr 10px minmax(300px, 5fr) 10px 1fr 1fr;
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-gap: 10px;
   grid-template-rows: auto auto;
   grid-template-areas:
-    "t t t t t . ."
-    ". . . p . . .";
+    "t t ."
+    ". p .";
 }
 
 article .post-intro {
   grid-area: t;
-  display: grid;
-  grid-template-columns: 1fr minmax(300px, 5fr) 1fr;
+  display: flex;
+  flex-direction: column;
   background-color: rgb(255,247,243);
   margin: .6rem 0 .8rem 0;
+  padding-left: 6%;
 }
 
 article .post-title {
