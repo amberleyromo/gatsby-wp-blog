@@ -8,13 +8,13 @@ import PostIcons from '../components/PostIcons'
 
 import { rhythm } from '../utils/typography'
 
-class Home extends Component {
+class Posts extends Component {
   render() {
     const data = this.props.data
 
     return (
-      <div className="home">
-        <h2 className="visually-hidden">Recent Posts</h2>
+      <div className="posts">
+        <h2 className="visually-hidden">Posts</h2>
         {data.allWordpressPost.edges.map(({ node }) => (
           <div className="post-node" key={node.slug}>
             <h3>
@@ -24,30 +24,16 @@ class Home extends Component {
             <div dangerouslySetInnerHTML={{ __html: node.excerpt }} />
           </div>
         ))}
-        <div className="more-posts">
-          <p><a href="/posts">More Posts >></a></p>
-        </div>
       </div>
     )
   }
 }
 
-export default Home
+export default Posts
 
 export const pageQuery = graphql`
-  query homePageQuery {
-    allWordpressPage {
-      edges {
-        node {
-          id
-          title
-          excerpt
-          slug
-          date(formatString: "MMMM DD, YYYY")
-        }
-      }
-    }
-    allWordpressPost (limit: 3) {
+  query postsPageQuery {
+    allWordpressPost {
       edges {
         node {
           title

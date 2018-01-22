@@ -81,6 +81,16 @@ header > * {
   }
 }
 
+.posts {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 1fr;
+  grid-gap: 10px;
+}
+
+.posts .post-node {
+  grid-column: 2/4;
+}
+
 article {
   display: grid;
   grid-template-columns: 1fr 1fr 10px minmax(300px, 5fr) 10px 1fr 1fr;
