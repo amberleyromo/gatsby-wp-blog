@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import PostIcons from '../components/PostIcons'
 import Img from 'gatsby-image'
+import Link from 'gatsby-link'
 
 import { rhythm } from '../utils/typography'
 
@@ -16,8 +17,30 @@ class PostTemplate extends Component {
           <PostIcons className="post-date" node={post} />
         </div>
         <div className="post-body" dangerouslySetInnerHTML={{ __html: post.content }} />
+        <div className="post-nav">
+          {this.renderPostNav()}
+        </div>
       </article>
     )
+  }
+
+  renderPostNav() {
+    var prev = this.props.pathContext.prevSlug;
+    var next = this.props.pathContext.nextSlug;
+
+    if (prev && !next) {
+      return (<Link to={prev}>previous</Link>);
+    }
+
+    if (prev && next) {
+      return (<span><Link to={prev}>previous</Link> | <Link to={next}>next</Link></span>)
+    }
+
+    if (next && !prev) {
+      return (<Link to={next}>next</Link>)
+    }
+
+    return;
   }
 }
 //<img src={post.image.sizes.thumbnail} />
