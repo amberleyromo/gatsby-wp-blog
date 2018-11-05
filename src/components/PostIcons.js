@@ -1,14 +1,25 @@
 import React from "react";
 import { FaClock as ClockIcon } from "react-icons/fa";
+import styled from "react-emotion";
 
-export default ({ node, className = `postIcon` }) => (
-  <div className={className}>
+const Date = styled("div")`
+  grid-column: 2/3;
+  margin-bottom: 0.8rem;
+
+  span {
+    font-size: 0.9rem;
+    color: #575757;
+  }
+`;
+
+export default ({ node }) => (
+  <Date>
     <span>
       <ClockIcon size={14} />
       {` `}
       {node.date}
     </span>
-  </div>
+  </Date>
 );
 
 export const query = graphql`

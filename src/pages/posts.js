@@ -2,6 +2,17 @@ import React, { Component } from "react";
 import { Link } from "gatsby";
 import Layout from "../components/Layout";
 import PostIcons from "../components/PostIcons";
+import styled from "react-emotion";
+
+const PostsWrapper = styled("div")`
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 1fr;
+  grid-gap: 10px;
+`;
+
+const Post = styled("div")`
+  grid-column: 2/4;
+`;
 
 class Posts extends Component {
   render() {
@@ -9,18 +20,18 @@ class Posts extends Component {
 
     return (
       <Layout>
-        <div className="posts">
+        <PostsWrapper>
           <h2 className="visually-hidden">Posts</h2>
           {data.allWordpressPost.edges.map(({ node }) => (
-            <div className="post-node" key={node.slug}>
+            <Post key={node.slug}>
               <h3>
                 <Link to={node.slug}>{node.title}</Link>
               </h3>
               <PostIcons className="post-date" node={node} />
               <div dangerouslySetInnerHTML={{ __html: node.excerpt }} />
-            </div>
+            </Post>
           ))}
-        </div>
+        </PostsWrapper>
       </Layout>
     );
   }

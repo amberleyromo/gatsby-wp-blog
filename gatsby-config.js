@@ -18,17 +18,16 @@ module.exports = {
           {
             src: `/favicons/icon-192x192.png`,
             sizes: `192x192`,
-            type: `image/png`,
+            type: `image/png`
           },
           {
             src: `/favicons/icon-512x512.png`,
             sizes: `512x512`,
-            type: `image/png`,
-          },
-        ],
-      },
+            type: `image/png`
+          }
+        ]
+      }
     },
-    `gatsby-plugin-offline`,
     {
       resolve: `gatsby-source-wordpress`,
       options: {
@@ -37,31 +36,31 @@ module.exports = {
         hostingWPCOM: false,
         useACF: false
       },
-      verboseOutput: true,
+      verboseOutput: true
     },
-    {
-      resolve: `gatsby-plugin-typography`,
-      options: {
-        pathToConfigModule: `src/utils/typography.js`,
-      }
-    },
+    `gatsby-plugin-emotion`,
     {
       resolve: `gatsby-plugin-accessibilityjs`,
       options: {
         injectStyles: false,
-        errorClassName: false,
-      },
+        errorClassName: false
+      }
     },
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: "UA-112664995-1",
-        anonymize: true,
-      },
+        anonymize: true
+      }
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    `gatsby-plugin-twitter`
-  ],
-  
+    `gatsby-plugin-twitter`,
+    {
+      resolve: `gatsby-plugin-typography`,
+      options: {
+        pathToConfigModule: `/src/utils/typography.js`
+      }
+    }
+  ]
 };
