@@ -1,5 +1,5 @@
-import React from 'react'
-import Link from 'gatsby-link'
+import React from "react";
+import Link from "gatsby-link";
 
 const Header = () => (
   <header>
@@ -7,12 +7,11 @@ const Header = () => (
       <Link to="/">Howdy. I'm Amberley.</Link>
     </h1>
     <h2>
-      <a href="https://github.com/amberleyromo">Front-end dev</a>,{' '}
-      <a href="https://www.instagram.com/cassrabbit/">bunny mama</a>,{' '}
-      <a href="https://www.ravelry.com/people/amberleyknits">knit nerd</a>.{' '}
+      <a href="https://github.com/amberleyromo">Front-end dev</a>,{" "}
+      <a href="https://www.ravelry.com/people/amberleyknits">yarn nerd</a>.{" "}
       <a href="https://twitter.com/amberleyjohanna">Sometimes-tweeter</a>.
     </h2>
   </header>
-)
+);
 
-export default Header
+export default Header;
