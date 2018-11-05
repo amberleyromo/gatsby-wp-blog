@@ -20,10 +20,6 @@ injectGlobal`
     clip: rect(1px, 1px, 1px, 1px);
   }
 
-  a {
-    text-decoration: underline;
-  }
-
   a:hover, a:focus, a > code:hover {
     background-color: rgb(244,153,133);
     color: #fff;
