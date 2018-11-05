@@ -1,9 +1,5 @@
-import React from 'react'
-import ClockIcon from 'react-icons/lib/fa/clock-o'
-import TagIcon from 'react-icons/lib/fa/tag'
-import OpenIcon from 'react-icons/lib/fa/folder-open'
-
-import { rhythm } from '../utils/typography'
+import React from "react";
+import { FaClock as ClockIcon } from "react-icons/fa";
 
 export default ({ node, className = `postIcon` }) => (
   <div className={className}>
@@ -13,7 +9,7 @@ export default ({ node, className = `postIcon` }) => (
       {node.date}
     </span>
   </div>
-)
+);
 
 export const query = graphql`
   fragment PostIcons on wordpress__POST {
@@ -25,4 +21,4 @@ export const query = graphql`
       name
     }
   }
-`
+`;
