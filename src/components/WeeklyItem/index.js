@@ -3,7 +3,6 @@ import styled from "react-emotion";
 
 const WeeklyItem = styled("div")`
   background-color: rgb(255, 247, 243);
-  border: thin solid #e3e3e3;
   padding: 0.25rem 1.5rem 0.25rem 1.5rem;
   margin-top: 1rem;
 `;

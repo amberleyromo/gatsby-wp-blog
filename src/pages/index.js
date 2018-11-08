@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "gatsby";
+import { graphql, Link } from "gatsby";
 import Layout from "../components/Layout";
 import PostIcons from "../components/PostIcons";
 import styled from "react-emotion";
@@ -29,11 +29,6 @@ const Post = styled("div")`
     padding-right: 1rem;
   }
 
-  &:nth-of-type(3) {
-    grid-column: 3;
-    padding-left: 1rem;
-  }
-
   @media (max-width: 600px) {
     &:nth-of-type(2),
     &:nth-of-type(3) {
@@ -47,13 +42,34 @@ const Post = styled("div")`
   }
 `;
 
+const WeeklyCallout = styled("div")`
+  background-color: rgb(255, 247, 243);
+  grid-column: 3;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 600px) {
+    grid-column: 2/4;
+    grid-row: 3;
+  }
+`;
+
+const WeeklyHeader = styled("h3")`
+  align-self: flex-start;
+`;
+
+const WeeklyLink = styled("h4")`
+  margin-top: 3.25rem;
+`;
+
 const MorePosts = styled("div")`
   grid-row: 3;
   grid-column: 2/4;
   margin-bottom: 4rem;
 
   p {
-    text-align: right;
+    text-align: left;
   }
 
   @media (max-width: 600px) {
@@ -67,13 +83,22 @@ const MorePosts = styled("div")`
 
 class Home extends Component {
   render() {
-    const data = this.props.data;
+    const {
+      allWordpressPost: wordPressPosts,
+      allMarkdownRemark: featuredWeekly
+    } = this.props.data;
+
+    const {
+      edition: weeklyEdition,
+      title: weeklyTitle,
+      excerpt: weeklyExcerpt
+    } = featuredWeekly.edges[0].node.frontmatter;
 
     return (
       <Layout>
         <HomeWrapper>
           <h2 className="visually-hidden">Recent Posts</h2>
-          {data.allWordpressPost.edges.map(({ node }) => (
+          {wordPressPosts.edges.map(({ node }) => (
             <Post key={node.slug}>
               <h3>
                 <Link to={node.slug}>{node.title}</Link>
@@ -82,6 +107,14 @@ class Home extends Component {
               <div dangerouslySetInnerHTML={{ __html: node.excerpt }} />
             </Post>
           ))}
+          <WeeklyCallout>
+            <WeeklyHeader>Weekly Reads + Finds</WeeklyHeader>
+            <small>A weekly (ideally, anyway) re-hash of cool shit.</small>
+            <WeeklyLink>
+              <Link to={`weeklies/${weeklyEdition}`}>{weeklyTitle}</Link>
+            </WeeklyLink>
+            <p>{weeklyExcerpt}</p>
+          </WeeklyCallout>
           <MorePosts>
             <p>
               <a href="/posts">More Posts >></a>
@@ -108,13 +141,33 @@ export const pageQuery = graphql`
         }
       }
     }
-    allWordpressPost(limit: 3) {
+    allWordpressPost(limit: 2) {
       edges {
         node {
           title
           excerpt
           slug
           ...PostIcons
+        }
+      }
+    }
+    allMarkdownRemark(
+      filter: { fields: { contentType: { eq: "weeklies" } } }
+      sort: { fields: [frontmatter___date], order: ASC }
+      limit: 1
+    ) {
+      edges {
+        node {
+          frontmatter {
+            title
+            date
+            excerpt
+            edition
+          }
+          fields {
+            slug
+            contentType
+          }
         }
       }
     }
