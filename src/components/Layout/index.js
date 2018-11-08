@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 
 import Header from "../Header";
@@ -76,8 +76,8 @@ class DefaultLayout extends React.Component {
   }
 }
 
-DefaultLayout.propTypes = {
-  location: PropTypes.object.isRequired
-};
+// DefaultLayout.propTypes = {
+//   location: PropTypes.object.isRequired
+// };
 
 export default DefaultLayout;

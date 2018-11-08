@@ -1,120 +1,168 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/node-apis/
- */
+const _ = require(`lodash`);
+const Promise = require(`bluebird`);
+const path = require(`path`);
+const parseFilepath = require(`parse-filepath`);
+const slash = require(`slash`);
 
- const _ = require(`lodash`)
- const Promise = require(`bluebird`)
- const path = require(`path`)
- const slash = require(`slash`)
+exports.onCreateNode = ({ node, actions, getNode }) => {
+  const { createNodeField } = actions;
+  let parentFileNode = getNode(node.parent);
+  if (
+    node.internal.type === `MarkdownRemark` &&
+    parentFileNode.internal.type === `File`
+  ) {
+    const parsedFilePath = parseFilepath(parentFileNode.relativePath);
 
- // Implement the Gatsby API “createPages”. This is
- // called after the Gatsby bootstrap is finished so you have
- // access to any information necessary to programmatically
- // create pages.
- // Will create pages for Wordpress pages (route : /{slug})
- // Will create pages for Wordpress posts (route : /post/{slug})
- exports.createPages = ({ graphql, boundActionCreators }) => {
-   const { createPage } = boundActionCreators
-   return new Promise((resolve, reject) => {
-     // The “graphql” function allows us to run arbitrary
-     // queries against the local Wordpress graphql schema. Think of
-     // it like the site has a built-in database constructed
-     // from the fetched data that you can run queries against.
+    if (parentFileNode.sourceInstanceName === `weeklies`) {
+      let slug = `/weeklies/${node.frontmatter.edition}/`;
+      createNodeField({ node, name: `slug`, value: slug });
+      createNodeField({ node, name: `contentType`, value: `weeklies` });
+    }
 
-     // ==== PAGES (WORDPRESS NATIVE) ====
-     graphql(
-       `
-         {
-           allWordpressPage {
-             edges {
-               node {
-                 id
-                 slug
-                 status
-                 template
-               }
-             }
-           }
-         }
-       `
-     )
-       .then(result => {
-         if (result.errors) {
-           console.log(result.errors)
-           reject(result.errors)
-         }
+    if (parentFileNode.sourceInstanceName === `resources`) {
+      // dir is `/resourceType/resourcePath`
+      const [resourceType, resourcePath] = parsedFilePath.dir.split("/");
+      let slug = `/${resourceType}/${resourcePath}/`;
+      createNodeField({ node, name: `slug`, value: slug });
+      createNodeField({
+        node,
+        name: `contentType`,
+        value: `resources`
+      });
+      createNodeField({
+        node,
+        name: `resourceType`,
+        value: resourceType
+      });
+    }
+  }
+};
 
-         // Create Page pages.
-         const pageTemplate = path.resolve(`./src/templates/page.js`)
-         // We want to create a detailed page for each
-         // page node. We'll just use the Wordpress Slug for the slug.
-         // The Page ID is prefixed with 'PAGE_'
-         _.each(result.data.allWordpressPage.edges, edge => {
-           // Gatsby uses Redux to manage its internal state.
-           // Plugins and sites can use functions like "createPage"
-           // to interact with Gatsby.
-           createPage({
-             // Each page is required to have a `path` as well
-             // as a template component. The `context` is
-             // optional but is often necessary so the template
-             // can query data specific to each page.
-             path: `/${edge.node.slug}/`,
-             component: slash(pageTemplate),
-             context: {
-               id: edge.node.id,
-             },
-           })
-         })
-       })
-       // ==== END PAGES ====
-
-       // ==== POSTS (WORDPRESS NATIVE AND ACF) ====
-       .then(() => {
-         graphql(
-           `
-             {
-               allWordpressPost {
-                 edges {
-                   node {
-                     id
-                     slug
-                     status
-                     template
-                     format
-                   }
-                 }
-               }
-             }
-           `
-         ).then(result => {
-            if (result.errors) {
-              console.log(result.errors)
-              reject(result.errors)
+exports.createPages = ({ graphql, boundActionCreators }) => {
+  const { createPage } = boundActionCreators;
+  return new Promise((resolve, reject) => {
+    // ==== WP PAGES ====
+    graphql(
+      `
+        {
+          allWordpressPage {
+            edges {
+              node {
+                id
+                slug
+                status
+                template
+              }
             }
+          }
+        }
+      `
+    )
+      .then(result => {
+        if (result.errors) {
+          console.log(result.errors);
+          reject(result.errors);
+        }
 
-            const postTemplate = path.resolve(`./src/templates/post.js`)
-            // We want to create a detailed page for each
-            // post node. We'll just use the Wordpress Slug for the slug.
-            // The Post ID is prefixed with 'POST_'
-            const posts = result.data.allWordpressPost.edges;
-            _.each(posts, (edge, i) => {
-              var prev = posts[i - 1] ? posts[i - 1].node.slug : null;
-              var next = posts[i + 1] ? posts[i + 1].node.slug : null;
-              createPage({
-                path: edge.node.slug,
-                component: slash(postTemplate),
-                context: {
-                  id: edge.node.id,
-                  prevSlug: prev,
-                  nextSlug: next
-                },
-              })
-            })
-           resolve()
-         })
-       })
-     // ==== END POSTS ====
-   })
- }
+        const pageTemplate = path.resolve(`./src/templates/page.js`);
+        _.each(result.data.allWordpressPage.edges, edge => {
+          createPage({
+            path: `/${edge.node.slug}/`,
+            component: slash(pageTemplate),
+            context: {
+              id: edge.node.id
+            }
+          });
+        });
+      }) // ==== END PAGES ====
+
+      // ==== WP POSTS ====
+      .then(() => {
+        graphql(
+          `
+            {
+              allWordpressPost {
+                edges {
+                  node {
+                    id
+                    slug
+                    status
+                    template
+                    format
+                  }
+                }
+              }
+            }
+          `
+        ).then(result => {
+          if (result.errors) {
+            console.log(result.errors);
+            reject(result.errors);
+          }
+
+          const postTemplate = path.resolve(`./src/templates/post.js`);
+          const posts = result.data.allWordpressPost.edges;
+
+          _.each(posts, (edge, i) => {
+            var prev = posts[i - 1] ? posts[i - 1].node.slug : null;
+            var next = posts[i + 1] ? posts[i + 1].node.slug : null;
+            createPage({
+              path: edge.node.slug,
+              component: slash(postTemplate),
+              context: {
+                id: edge.node.id,
+                prevSlug: prev,
+                nextSlug: next
+              }
+            });
+          });
+          // resolve();
+        });
+      }) // ==== END POSTS ====
+
+      // ==== WEEKLIES ====
+      .then(() => {
+        graphql(
+          `
+            {
+              allMarkdownRemark(
+                filter: { fields: { contentType: { eq: "weeklies" } } }
+              ) {
+                edges {
+                  node {
+                    id
+                    fields {
+                      slug
+                    }
+                    frontmatter {
+                      edition
+                    }
+                  }
+                }
+              }
+            }
+          `
+        ).then(result => {
+          if (result.errors) {
+            console.log(result.errors);
+            reject(result.errors);
+          }
+
+          const weeklyTemplate = path.resolve(`./src/templates/weekly.js`);
+          const weeklies = result.data.allMarkdownRemark.edges;
+
+          _.each(weeklies, edge => {
+            createPage({
+              path: edge.node.fields.slug,
+              component: slash(weeklyTemplate),
+              context: {
+                id: edge.node.id,
+                edition: edge.node.frontmatter.edition
+              }
+            });
+          });
+          resolve();
+        });
+      }); // ==== END WEEKLIES ====
+  });
+};

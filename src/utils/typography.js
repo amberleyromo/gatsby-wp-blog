@@ -2,7 +2,7 @@ import Typography from "typography";
 import Sutro from "typography-theme-sutro";
 
 Sutro.headerLineHeight = 1.1;
-Sutro.baseFontSize = "18px";
+// Sutro.baseFontSize = "18px";
 Sutro.overrideThemeStyles = ({ rhythm }, options) => {
   return {
     "h1,h2,h3": {

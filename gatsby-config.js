@@ -34,7 +34,13 @@ module.exports = {
         baseUrl: `amberley.me`,
         protocol: `https`,
         hostingWPCOM: false,
-        useACF: false
+        useACF: false,
+        excludedRoutes: [
+          "/*/*/key",
+          "/*/*/settings",
+          "/*/*/stats",
+          "/*/*/users/*"
+        ]
       },
       verboseOutput: true
     },
@@ -53,14 +59,44 @@ module.exports = {
         anonymize: true
       }
     },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
     `gatsby-plugin-twitter`,
     {
       resolve: `gatsby-plugin-typography`,
       options: {
         pathToConfigModule: `/src/utils/typography.js`
       }
-    }
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `weeklies`,
+        path: `${__dirname}/content/weeklies`
+      }
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `resources`,
+        path: `${__dirname}/content/resources`
+      }
+    },
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          `gatsby-remark-code-titles`,
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 786,
+              backgroundColor: `#ffffff`
+            }
+          },
+          `gatsby-remark-autolink-headers`
+        ]
+      }
+    },
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`
   ]
 };
